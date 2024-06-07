@@ -1,0 +1,64 @@
+<nav class="breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a>
+
+  {% if template contains 'collection' %}
+    {% if current_tags %}
+      <span class="breadcrumb__separator">›</span>
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+      {% for tag in current_tags %}
+        <span class="breadcrumb__separator">›</span>
+        <span>{{ tag }}</span>
+      {% endfor %}
+    {% else %}
+      <span class="breadcrumb__separator">›</span>
+      <span>{{ collection.title }}</span>
+    {% endif %}
+  {% endif %}
+
+  {% if template contains 'product' %}
+    {% assign collection = product.collections.first %}
+    {% if collection %}
+      <span class="breadcrumb__separator">›</span>
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+    {% endif %}
+    <span class="breadcrumb__separator">›</span>
+    <span>{{ product.title }}</span>
+  {% endif %}
+
+  {% if template contains 'page' %}
+    <span class="breadcrumb__separator">›</span>
+    <span>{{ page.title }}</span>
+  {% endif %}
+
+  {% if template contains 'blog' %}
+    <span class="breadcrumb__separator">›</span>
+    <a href="{{ blog.url }}">{{ blog.title }}</a>
+    {% if article %}
+      <span class="breadcrumb__separator">›</span>
+      <span>{{ article.title }}</span>
+    {% endif %}
+  {% endif %}
+</nav>
+
+
+<style>
+.breadcrumb {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.breadcrumb a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb__separator {
+  margin: 0 5px;
+  color: #999;
+}
+
+</style>
